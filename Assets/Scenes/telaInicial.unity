@@ -426,10 +426,10 @@ RectTransform:
   - {fileID: 1542346854}
   m_Father: {fileID: 1344586320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.39825746, y: 0.3498742}
-  m_AnchorMax: {x: 0.6555808, y: 0.5}
-  m_AnchoredPosition: {x: -0.30596924, y: -5.3265686}
-  m_SizeDelta: {x: 275, y: 77}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 14.499999, y: -42.32657}
+  m_SizeDelta: {x: -374, y: -337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &176596396
 MonoBehaviour:
@@ -474,7 +474,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 176596397}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 358252102}
+        m_TargetAssemblyTypeName: ManagerTelaInicial, Assembly-CSharp
+        m_MethodName: AbrirOpcoes
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &176596397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,9 +794,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ccf2f0c5d3526049972fa7de85f1398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManagerTelaInicial
-  nomeDoLevelDeJogo: 
-  painelMenuInicial: {fileID: 0}
-  painelOpcoes: {fileID: 0}
+  nomeDoLevelDeJogo: Game
+  painelMenuInicial: {fileID: 1344586319}
+  painelOpcoes: {fileID: 1584415774}
 --- !u!4 &358252103
 Transform:
   m_ObjectHideFlags: 0
@@ -1169,7 +1181,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 599369221}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 358252102}
+        m_TargetAssemblyTypeName: ManagerTelaInicial, Assembly-CSharp
+        m_MethodName: FecharOpcoes
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &599369221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,10 +1355,10 @@ RectTransform:
   - {fileID: 1126207661}
   m_Father: {fileID: 1344586320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.39825746, y: 0.13749677}
-  m_AnchorMax: {x: 0.6555808, y: 0.286}
-  m_AnchoredPosition: {x: -0.30595398, y: 1.3817749}
-  m_SizeDelta: {x: 275, y: 78}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 14.499999, y: -138.61823}
+  m_SizeDelta: {x: -374, y: -336}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &668363474
 MonoBehaviour:
@@ -1379,7 +1403,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 668363475}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 358252102}
+        m_TargetAssemblyTypeName: ManagerTelaInicial, Assembly-CSharp
+        m_MethodName: SairJogo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &668363475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1717,7 +1753,7 @@ MonoBehaviour:
   m_text: exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2096,7 +2132,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -0.000022888184}
+  m_AnchoredPosition: {x: 0, y: -0.000030517578}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1306845608
@@ -2122,7 +2158,7 @@ MonoBehaviour:
   m_text: Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2379,10 +2415,10 @@ RectTransform:
   - {fileID: 1306845607}
   m_Father: {fileID: 1344586320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.39825746, y: 0.5248742}
-  m_AnchorMax: {x: 0.6555808, y: 0.67537755}
-  m_AnchoredPosition: {x: -0.30596924, y: 0.36297607}
-  m_SizeDelta: {x: 275, y: 77}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 14, y: 48.862976}
+  m_SizeDelta: {x: -373, y: -336}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1508934178
 MonoBehaviour:
@@ -2427,7 +2463,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1508934179}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 358252102}
+        m_TargetAssemblyTypeName: ManagerTelaInicial, Assembly-CSharp
+        m_MethodName: Jogar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1508934179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2539,7 +2587,7 @@ MonoBehaviour:
   m_text: configuration
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

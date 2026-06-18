@@ -11,7 +11,7 @@ public class ManagerTelaInicial : MonoBehaviour
     [SerializeField] private GameObject painelOpcoes;
     public void Jogar()
     {
-        SceneManager.LoadScene("jogo");
+        SceneManager.LoadScene("Game");
     }
 
     public void AbrirOpcoes()
