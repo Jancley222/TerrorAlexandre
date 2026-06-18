@@ -20,10 +20,7 @@ public class FlashlightController : MonoBehaviour
 
     void Update()
     {
-        // NOVO: Se o jogo estiver pausado, não permite ligar/desligar a lanterna
         if (PauseMenu.isGamePaused) return;
-
-        //verifica o clique do botão esquerdo no Novo Input System
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             ToggleFlashlight();
@@ -34,10 +31,8 @@ public class FlashlightController : MonoBehaviour
     {
         if (flashlightLight != null)
         {
-            //inverte o estado atual (se true vira false, se false vira true)
             isOn = !isOn;
 
-            //liga ou desliga o componente de luz
             flashlightLight.enabled = isOn;
         }
     }
