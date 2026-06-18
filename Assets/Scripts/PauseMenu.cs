@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PauseMenu : MonoBehaviour
 {
     public static bool isGamePaused = false;
+    [SerializeField] private PlayerInput playerInput;
 
     void Update()
     {
@@ -28,6 +29,11 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        if (playerInput != null)
+        {
+            playerInput.enabled = true;
+        }
+
         Debug.Log("Resumed");
     }
 
@@ -38,6 +44,11 @@ public class PauseMenu : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        if (playerInput != null)
+        {
+            playerInput.enabled = false;
+        }
 
         InputSystem.ResetHaptics();
         foreach (var device in InputSystem.devices)
