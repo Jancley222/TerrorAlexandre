@@ -401,6 +401,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashlightController
   flashlightLight: {fileID: 123294858}
+--- !u!1 &127158807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6642146588601794206, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+  m_PrefabInstance: {fileID: 2131418380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &197948542
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +453,7 @@ Terrain:
   m_GameObject: {fileID: 197948542}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 1b30e03fe9836a04c810202255bf75d4, type: 2}
+  m_TerrainData: {fileID: 0}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -546,12 +551,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297581421}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 651.699, y: 1.34114, z: -37.36432}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.901001, y: 1.34114, z: 14.895679}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1617128172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &297581424
 MonoBehaviour:
@@ -565,6 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70385f07e9f888344bd87cc46d353a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
+  playerInput: {fileID: 0}
 --- !u!1001 &378436667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1028,12 +1034,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689390465}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 656.7999, y: -6.61369, z: -0.50747}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.1999512, y: -6.61369, z: 51.75253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1617128172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &689390468
 MonoBehaviour:
@@ -1798,6 +1804,29 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.045328, y: 2.941295, z: 4.589351}
   m_Center: {x: 0.273052, y: 0.97064704, z: 0.09962519}
+--- !u!1 &1617128171 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4217402955551800003, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+  m_PrefabInstance: {fileID: 2131418380}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1617128172 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2525814327128439646, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+  m_PrefabInstance: {fileID: 2131418380}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1617128173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617128171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58616e5ae698024a8afff6890c035b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraPauseController
+  playerFollowCamera: {fileID: 127158807}
 --- !u!1 &1625624989 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 104598, guid: 2394d7d557201f048b00c84246231eb0, type: 3}
@@ -2217,6 +2246,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2525814327128439646, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 689390467}
+    - targetCorrespondingSourceObject: {fileID: 2525814327128439646, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 297581423}
     - targetCorrespondingSourceObject: {fileID: 6239881447966644157, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
       insertIndex: -1
       addedObject: {fileID: 123294856}
@@ -2224,6 +2259,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1575239823}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4217402955551800003, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1617128173}
     - targetCorrespondingSourceObject: {fileID: 6239881447966644152, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2093234709}
@@ -2257,5 +2295,3 @@ SceneRoots:
   - {fileID: 1934250070}
   - {fileID: 67202283}
   - {fileID: 1135207274}
-  - {fileID: 689390467}
-  - {fileID: 297581423}
