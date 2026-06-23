@@ -31,6 +31,7 @@ public class ControladorSom : MonoBehaviour
 
     public void VolumeMusical(float value)
     {
-        fundoMusical.volume = value;
+        AudioSource fundoMusical1 = fundoMusical;
+        fundoMusical1.volume = value;
     }
 }
