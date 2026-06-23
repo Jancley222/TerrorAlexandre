@@ -148,7 +148,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374535299}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25a4ae57b75af3f4387e3030a6ca1bbf, type: 3}
   m_Name: 
@@ -294,6 +294,9 @@ GameObject:
   - component: {fileID: 148331048}
   - component: {fileID: 148331049}
   - component: {fileID: 376489986}
+  - component: {fileID: 376489989}
+  - component: {fileID: 376489988}
+  - component: {fileID: 376489987}
   m_Layer: 0
   m_Name: LionStatue
   m_TagString: Untagged
@@ -385,14 +388,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8470754dca6858498498fd0eee296bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeepingAngel
-  ai: {fileID: 148331043}
-  player: {fileID: 1676627858}
-  playerCam: {fileID: 1622930000}
+  cabecaOlhos: {fileID: 374719587}
+  agent: {fileID: 148331043}
+  visionFilter: {fileID: 376489988}
+  targetDetector: {fileID: 376489987}
+  patrolSystem: {fileID: 376489989}
+  velocidadeMovimento: 5
+  distanciaAtaque: 1.5
+  tempoJumpscare: 2
+  cenaMorte: GameOver
   jumpscareCam: {fileID: 1483562008}
-  aiSpeed: 2
-  catchDistance: 1
-  jumpscareTime: 1
-  sceneAfterDeath: Game
+--- !u!114 &376489987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374535299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ed240957ef4334790ee5101eb7d966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyTargetDetector
+  raioDeteccao: 15
+  anguloVisao: 180
+  layerDoJogador:
+    serializedVersion: 2
+    m_Bits: 64
+  layerObstaculos:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &376489988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374535299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee57b8242a51884481e6cb79f0afc37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVisionFilter
+  playerCam: {fileID: 1622930000}
+  enemyRenderer: {fileID: 376489985}
+--- !u!114 &376489989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374535299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82676a8bd5348ae47aa432b813fe889a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PatrolSystem
+  modoAtual: 1
+  pontosDePatrulha: []
+  raioBuscaAleatoria: 20
 --- !u!1001 &1064064649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -401,6 +455,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1582516642592304392, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265830609865361813, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2525814327128439646, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
       propertyPath: m_LocalPosition.x
       value: 445.24954
@@ -441,13 +503,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3842067043406338381, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4217402955551800003, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
       propertyPath: m_Name
       value: KitFirstPerson
       objectReference: {fileID: 0}
+    - target: {fileID: 4217402955551800003, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110400808922723328, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956925757769283974, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6239881447966644152, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6642146587971030690, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6642146588601794206, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6642146588601794401, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910328618845839382, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -721,11 +815,6 @@ Transform:
 --- !u!20 &1622930000 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6239881447966644154, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
-  m_PrefabInstance: {fileID: 1064064649}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1676627858 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2525814327128439646, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
   m_PrefabInstance: {fileID: 1064064649}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2097016555
