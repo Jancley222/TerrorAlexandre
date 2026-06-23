@@ -131,26 +131,15 @@ GameObject:
   - component: {fileID: 637531268}
   - component: {fileID: 637531267}
   - component: {fileID: 637531266}
-  - component: {fileID: 637531265}
-  m_Layer: 0
+  - component: {fileID: 637531271}
+  - component: {fileID: 637531270}
+  m_Layer: 8
   m_Name: Battary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &637531265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637531264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 104991f167ba39f4699a25038fd2069f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Door
 --- !u!136 &637531266
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -245,6 +234,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &637531270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637531264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &637531271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637531264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d89fa561c40b54d938cd167c6daa43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableItem
+  nomeDoItem: Bateria
+  quantidade: 1
 --- !u!1001 &1064064649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -347,7 +368,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4217402955551800003, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1372109487}
+      addedObject: {fileID: 1372109489}
   m_SourcePrefab: {fileID: 100100000, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
 --- !u!1 &1172728209
 GameObject:
@@ -481,7 +502,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4217402955551800003, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
   m_PrefabInstance: {fileID: 1064064649}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1372109487
+--- !u!114 &1372109489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -490,14 +511,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1372109485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fd03672bffa312479e29d01947410df, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c5ad32ed76f6454e97a5decc1b458c4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Interact3D
-  "bot\xE3oDeInteracao": Interact
-  DistanciaDeInteracao: 3
-  ObjetoInteragivel:
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  distanciaInteracao: 3
+  camadasInterativas:
     serializedVersion: 2
     m_Bits: 256
+  botaoInteracao: Interact
 --- !u!1 &1484871029
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +531,7 @@ GameObject:
   - component: {fileID: 1484871032}
   - component: {fileID: 1484871031}
   - component: {fileID: 1484871030}
+  - component: {fileID: 1484871034}
   m_Layer: 7
   m_Name: Parede
   m_TagString: Untagged
@@ -609,6 +631,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1484871034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484871029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!20 &1622930000 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6239881447966644154, guid: 41c93d10dcd15a4479f2bd78ee8a8930, type: 3}
