@@ -1,4 +1,3 @@
-// WeepingAngelBrain.cs
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,18 +35,20 @@ public class WeepingAngel : MonoBehaviour
 
     private void Update()
     {
+        // PROTEÇÃO: Se o jumpscare já ativou, o anjo para de pensar. Fim de jogo.
+        if (_estadoAtual == EstadoAI.Jumpscare) return;
+
         // REGRA DE OURO DO ANJO: Se o jogador estiver olhando, congela imediatamente!
         if (visionFilter.IsBeingWatched())
         {
             agent.speed = 0;
-            agent.SetDestination(transform.root.position); // Força parada absoluta de eixos
-            return; // Interrompe o Update aqui; a IA não executa nenhuma ação física
+            agent.SetDestination(transform.root.position);
+            return;
         }
 
         // Se o jogador piscou ou desviou o olhar, o anjo retoma sua velocidade normal
         agent.speed = velocidadeMovimento;
 
-        // Executa a máquina de estados padrão
         ProcessarEstados();
     }
 
@@ -67,7 +68,6 @@ public class WeepingAngel : MonoBehaviour
 
     private void ExecutarPatrulha()
     {
-        // Se encontrarmos o jogador durante a patrulha, mudamos o estado
         _alvoAtual = targetDetector.DetectTarget(cabecaOlhos);
         if (_alvoAtual != null)
         {
@@ -76,7 +76,6 @@ public class WeepingAngel : MonoBehaviour
             return;
         }
 
-        // Se o agente chegou perto do destino de patrulha atual, pede um novo ponto
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
         {
             Vector3 proximoPonto = patrolSystem.GetNextPatrolPoint(transform.position);
@@ -86,12 +85,25 @@ public class WeepingAngel : MonoBehaviour
 
     private void ExecutarPerseguicao()
     {
-        // Verifica se o jogador fugiu do campo de visão geral da IA
-        _alvoAtual = targetDetector.DetectTarget(cabecaOlhos);
+        // 1. PRIMEIRO: Verifica a distância para atacar. 
+        // Usamos uma distância em "2D" (ignorando o Y) para que a altura do anjo não atrapalhe o cálculo.
+        float distanciaAteAlvo = Vector3.Distance(
+            new Vector3(transform.position.x, 0, transform.position.z),
+            new Vector3(_alvoAtual.position.x, 0, _alvoAtual.position.z)
+        );
 
-        if (_alvoAtual == null)
+        // Se estiver perto o suficiente, dá o bote imediatamente!
+        if (distanciaAteAlvo <= distanciaAtaque)
         {
-            // Perdeu o jogador! Volta a patrulhar calculando o ponto a partir de onde parou
+            MudarEstado(EstadoAI.Jumpscare);
+            return; // Importante: Dá o return para não continuar executando o código abaixo
+        }
+
+        // 2. SÓ DEPOIS: Checa se o jogador fugiu da visão
+        Transform alvoVisto = targetDetector.DetectTarget(cabecaOlhos);
+
+        if (alvoVisto == null)
+        {
             MudarEstado(EstadoAI.Patrulhando);
             Vector3 pontoPosPerseguicao = patrolSystem.GetNextPatrolPoint(transform.position);
             agent.SetDestination(pontoPosPerseguicao);
@@ -99,16 +111,13 @@ public class WeepingAngel : MonoBehaviour
         }
 
         agent.SetDestination(_alvoAtual.position);
-
-        // Checa proximidade física para matar o jogador
-        if (Vector3.Distance(transform.position, _alvoAtual.position) <= distanciaAtaque)
-        {
-            MudarEstado(EstadoAI.Jumpscare);
-        }
     }
 
     private void MudarEstado(EstadoAI novoEstado)
     {
+        // Evita que o mesmo estado seja chamado duas vezes seguidas
+        if (_estadoAtual == novoEstado) return;
+
         _estadoAtual = novoEstado;
 
         if (_estadoAtual == EstadoAI.Jumpscare)
@@ -119,8 +128,11 @@ public class WeepingAngel : MonoBehaviour
 
     private IEnumerator RotinaMorte()
     {
+        // Trava o NavMesh para ele não deslizar durante o susto
         agent.isStopped = true;
+        agent.velocity = Vector3.zero;
 
+        // Troca as câmeras
         if (_alvoAtual != null) _alvoAtual.gameObject.SetActive(false);
         if (jumpscareCam != null) jumpscareCam.gameObject.SetActive(true);
 

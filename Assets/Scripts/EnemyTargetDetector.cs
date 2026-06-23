@@ -1,46 +1,51 @@
-
 using UnityEngine;
 
 public class EnemyTargetDetector : MonoBehaviour
 {
     [Header("Configurações de Detecção")]
     [SerializeField] private float raioDeteccao = 15f;
-    [Range(0, 360)][SerializeField] private float anguloVisao = 120f;
+    [Range(0, 360)]
+    [SerializeField] private float anguloVisao = 180f;
     [SerializeField] private LayerMask layerDoJogador;
     [SerializeField] private LayerMask layerObstaculos;
 
-   
-    // Procura pelo jogador dentro do raio e ângulo configurados, checando se há paredes no caminho.
-    public Transform DetectTarget(Transform olhosInimigo)
+    public Transform DetectTarget(Transform cabecaOlhos)
     {
-        // Coleta colisores no raio usando OverlapSphere (otimizado para performance)
-        Collider[] colliders = Physics.OverlapSphere(olhosInimigo.position, raioDeteccao, layerDoJogador);
+        // 1. Procura por colisores do jogador dentro do raio de detecção
+        Collider[] alvosNoRaio = Physics.OverlapSphere(cabecaOlhos.position, raioDeteccao, layerDoJogador);
 
-        if (colliders.Length > 0)
+        if (alvosNoRaio.Length > 0)
         {
-            Transform potencialAlvo = colliders[0].transform;
-            Vector3 direcaoParaAlvo = (potencialAlvo.position - olhosInimigo.position).normalized;
+            Transform jogador = alvosNoRaio[0].transform;
+            Vector3 direcaoParaJogador = (jogador.position - cabecaOlhos.position).normalized;
 
-            // Verifica se o alvo está dentro do ângulo de visão frontal da IA
-            if (Vector3.Angle(olhosInimigo.forward, direcaoParaAlvo) < (anguloVisao * 0.5f))
+            // 2. Verifica se o jogador está dentro do ângulo de visão frontal do anjo
+            if (Vector3.Angle(cabecaOlhos.forward, direcaoParaJogador) < anguloVisao / 2f)
             {
-                float distanciaParaAlvo = Vector3.Distance(olhosInimigo.position, potencialAlvo.position);
+                float distanciaAteJogador = Vector3.Distance(cabecaOlhos.position, jogador.position);
 
-                // Dispara um raio para garantir que não há paredes bloqueando a visão da IA
-                if (!Physics.Raycast(olhosInimigo.position, direcaoParaAlvo, distanciaParaAlvo, layerObstaculos))
+                // 3. O PULO DO GATO: Checagem de Obstáculos (Linha de Visão)
+                // Dispara um raio laser da cabeça do inimigo em direção ao jogador.
+                // O raio só se estende até a distância exata onde o jogador está.
+                if (Physics.Raycast(cabecaOlhos.position, direcaoParaJogador, distanciaAteJogador, layerObstaculos))
                 {
-                    return potencialAlvo; // Jogador detectado com sucesso!
+                    // Se o raio colidir com a layerObstaculos no caminho, a visão está bloqueada!
+                    return null;
                 }
+
+                // Se o raio não encontrou nenhum obstáculo, o anjo consegue ver o jogador livremente
+                return jogador;
             }
         }
 
-        return null; // Nenhum alvo visível
+        // Nenhum jogador detectado no raio ou visível
+        return null;
     }
 
+    // Desenha o raio de detecção no Editor para ajudar nos testes
     private void OnDrawGizmosSelected()
     {
-        // Desenha o raio do OverlapSphere no Editor para depuração
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, raioDeteccao);
     }
 }
