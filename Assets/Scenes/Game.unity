@@ -2778,6 +2778,75 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1881103633}
   m_SourcePrefab: {fileID: 100100000, guid: 2394d7d557201f048b00c84246231eb0, type: 3}
+--- !u!1001 &401373505
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.6783
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.6783
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.6783
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 522.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -42.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.032252684
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9994798
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 176.303
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546044659926088824, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214740845999482562, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
+      propertyPath: m_Name
+      value: ChickenHouse
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d94fd5bf57d3df94a80138e744e43509, type: 3}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -5170,6 +5239,7 @@ GameObject:
   - component: {fileID: 897899153}
   - component: {fileID: 897899155}
   - component: {fileID: 897899154}
+  - component: {fileID: 897899156}
   m_Layer: 0
   m_Name: Terrain_(0.00, 0.00, -1000.00)
   m_TagString: Untagged
@@ -5252,6 +5322,27 @@ Terrain:
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
+--- !u!65 &897899156
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897899152}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &901621876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10916,3 +11007,4 @@ SceneRoots:
   - {fileID: 1143357715}
   - {fileID: 1977769790}
   - {fileID: 1521370159}
+  - {fileID: 401373505}
