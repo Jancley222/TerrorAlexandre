@@ -3,75 +3,81 @@ using UnityEngine;
 public class PlayerInteractor : MonoBehaviour
 {
     [Header("Configurações de Raio")]
-    [SerializeField] private float distanciaInteracao = 3f;
+    [SerializeField] private float distanciaInteracao = 4f; // Distância estilo Minecraft (4 blocos)
     [SerializeField] private LayerMask camadasInterativas;
 
+    [Header("Componentes")]
+    [SerializeField] private Camera cameraJogador;
+
     [Header("Input")]
-    [Tooltip("Nome exato do botão configurado no Input Manager da Unity (ex: 'Interact')")]
     [SerializeField] private string botaoInteracao = "Interact";
 
-    // Caches para evitar a chamada repetida de GetComponent toda fração de segundo (Otimização)
     private IInteractable _interactavelAtual;
     private Outline _outlineAtual;
 
-    private void Update()
+    private void Start()
     {
-        ProcessarChecagemVisao();
-        ProcessarInputInteracao();
+        if (cameraJogador == null)
+        {
+            cameraJogador = Camera.main;
+        }
+
+        // Prende o mouse no centro da tela para jogos em primeira pessoa
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-
-    private void ProcessarChecagemVisao()
+    private void Update()
     {
-        Ray raio = new Ray(transform.position, transform.forward);
+        ProcessarMecanicaMira();
+        ProcessarInput();
+    }
 
-        // Se o raio atingir algo na camada configurada
-        if (Physics.Raycast(raio, out RaycastHit hit, distanciaInteracao, camadasInterativas))
+    private void ProcessarMecanicaMira()
+    {
+        // LÓGICA MINECRAFT: Transforma o centro exato da tela (0.5, 0.5) em um raio físico no mundo 3D
+        Ray raioDaMira = cameraJogador.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+        if (Physics.Raycast(raioDaMira, out RaycastHit hit, distanciaInteracao, camadasInterativas))
         {
-            // Tenta obter o componente interativo através da interface
-            IInteractable interactavel = hit.collider.GetComponent<IInteractable>();
+            IInteractable interactavel = hit.collider.GetComponentInParent<IInteractable>() ?? hit.collider.GetComponent<IInteractable>();
 
             if (interactavel != null)
             {
-                // Se mudamos de objeto ou começamos a olhar para um agora
+                // Se a mira mudou de um objeto para outro
                 if (interactavel != _interactavelAtual)
                 {
-                    DesativarOutlineAtual(); // Limpa o objeto anterior
+                    DesativarOutlineAnterior();
 
                     _interactavelAtual = interactavel;
+                    _outlineAtual = hit.collider.GetComponentInParent<Outline>() ?? hit.collider.GetComponent<Outline>();
 
-                    // Tenta capturar o componente do pacote 'Quick Outline'
-                    _outlineAtual = hit.collider.GetComponent<Outline>();
                     if (_outlineAtual != null)
                     {
-                        _outlineAtual.enabled = true; // Liga o contorno visual
+                        _outlineAtual.enabled = true; // Ativa o contorno do QuickOutline
                     }
                 }
-                return; // Mantém o objeto focado, sai do método.
+                return; // Objeto focado com sucesso, para a execução do método
             }
         }
 
-        // Se o raio não atingiu nada válido, limpa o feedback visual
-        DesativarOutlineAtual();
+        // Se a mira saiu de cima do collider, desliga o contorno imediatamente
+        DesativarOutlineAnterior();
     }
 
-    
-    // Escuta o comando do teclado/controle para disparar a ação do objeto focado.
-    
-    private void ProcessarInputInteracao()
+    private void ProcessarInput()
     {
-        // Solicitação do usuário: Uso estrito de GetButtonDown
         if (Input.GetButtonDown(botaoInteracao) && _interactavelAtual != null)
         {
-            // POLIMORFISMO: O interactor não sabe se é porta ou item, ele apenas executa.
             _interactavelAtual.Interact();
+
+            // Força a atualização da mira caso o objeto olhado tenha sido destruído/coletado
+            _interactavelAtual = null;
+            _outlineAtual = null;
         }
     }
 
- 
-    // Desliga o componente Quick Outline do objeto que paramos de olhar.
- 
-    private void DesativarOutlineAtual()
+    private void DesativarOutlineAnterior()
     {
         if (_outlineAtual != null)
         {
