@@ -22246,7 +22246,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 728643403952685186, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: raioDeteccao
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 738765982953366491, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22299,6 +22299,10 @@ PrefabInstance:
     - target: {fileID: 4504511222764977133, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: m_Name
       value: LionStatue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
+      propertyPath: raioBuscaAleatoria
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6629206537126531930, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: playerCam
