@@ -367,7 +367,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -441,7 +441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 7482667652216324306, guid: e10e11dcae86c094c899a4ac61503ca5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -914,6 +914,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &1388232691 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 2895052026650601418, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
+  m_PrefabInstance: {fileID: 2041788346}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &1471271013 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3819325444662944453, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
@@ -1060,6 +1065,22 @@ PrefabInstance:
     - target: {fileID: 336263946788962782, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
       propertyPath: m_Name
       value: KitFirstPerson2 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 336263946788962782, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
+      propertyPath: m_TagString
+      value: Jogador
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401436630072688405, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
+      propertyPath: flashlightLight
+      value: 
+      objectReference: {fileID: 1388232691}
+    - target: {fileID: 6575283615679798932, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
+      propertyPath: drainRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6575283615679798932, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
+      propertyPath: flickerThreshold
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7479003224667404163, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
       propertyPath: SprintSpeed
