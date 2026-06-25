@@ -1,39 +1,73 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(FlashlightBattery))]
+[RequireComponent(typeof(FlashlightVisuals))]
 public class FlashlightController : MonoBehaviour
 {
-    //referência para o componente de luz da lanterna
-    [SerializeField] private Light flashlightLight;
-
-    //variável para controlar se a lanterna está ligada ou desligada
+    private FlashlightBattery battery;
+    private FlashlightVisuals visuals;
     private bool isOn = true;
 
-    void Start()
+    private void Awake()
     {
-        //garante que a lanterna comece no estado correto
-        if (flashlightLight != null)
-        {
-            flashlightLight.enabled = isOn;
-        }
+        battery = GetComponent<FlashlightBattery>();
+        visuals = GetComponent<FlashlightVisuals>();
     }
 
-    void Update()
+    private void Start()
+    {
+        visuals.SetLightState(isOn);
+
+        // Se inscrevendo nos eventos da bateria
+        battery.OnBatteryLow += HandleBatteryLow;
+        battery.OnBatteryEmpty += HandleBatteryEmpty;
+    }
+
+    private void Update()
     {
         if (PauseMenu.isGamePaused) return;
+
+        // Input usando o novo Input System
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             ToggleFlashlight();
+        }
+
+        // Se estiver ligada, drena a bateria gradualmente
+        if (isOn && battery.CurrentBattery > 0)
+        {
+            battery.Drain(Time.deltaTime);
         }
     }
 
     private void ToggleFlashlight()
     {
-        if (flashlightLight != null)
-        {
-            isOn = !isOn;
+        if (battery.CurrentBattery <= 0) return; // Não liga sem bateria
 
-            flashlightLight.enabled = isOn;
+        isOn = !isOn;
+        visuals.SetLightState(isOn);
+    }
+
+    private void HandleBatteryLow()
+    {
+        // Chance aleatória por frame para o efeito de game juice não ser repetitivo ou travado
+        if (Random.value < 0.02f)
+        {
+            visuals.TriggerFlicker();
         }
+    }
+
+    private void HandleBatteryEmpty()
+    {
+        isOn = false;
+        visuals.SetLightState(false);
+    }
+
+    private void OnDestroy()
+    {
+        // Boa prática: desinscrever dos eventos para evitar Memory Leaks
+        battery.OnBatteryLow -= HandleBatteryLow;
+        battery.OnBatteryEmpty -= HandleBatteryEmpty;
     }
 }

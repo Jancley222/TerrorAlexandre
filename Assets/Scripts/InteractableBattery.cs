@@ -14,11 +14,22 @@ public class InteractableBattery : MonoBehaviour, IInteractable
 
     private void ColetarBateria()
     {
-        Debug.Log($"[Lanterna/Inventário] {nomeItem} coletada! Adicionado +{quantidadeCarga}% de carga.");
+        // Procura pelo componente de bateria no Player do mapa
+        GameObject player = GameObject.FindGameObjectWithTag("Jogador");
 
-        // Exemplo de integração futura:
-        // Lanterna.Instancia.Recarregar(quantidadeCarga);
+        if (player != null)
+        {
+            FlashlightBattery playerBattery = player.GetComponentInChildren<FlashlightBattery>();
 
-        Destroy(gameObject);
+            if (playerBattery != null)
+            {
+                playerBattery.Recharge(quantidadeCarga);
+                Debug.Log($"[Lanterna/Inventário] {nomeItem} coletada! Adicionado +{quantidadeCarga}% de carga.");
+                Destroy(gameObject);
+                return;
+            }
+        }
+
+        Debug.LogWarning("Player ou componente FlashlightBattery não encontrado para aplicar a carga.");
     }
 }
