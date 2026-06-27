@@ -7,7 +7,7 @@ public class FlashlightController : MonoBehaviour
 {
     private FlashlightBattery battery;
     private FlashlightVisuals visuals;
-    private bool isOn = true;
+    private bool isOn = false;
 
     private void Awake()
     {

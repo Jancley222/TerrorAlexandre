@@ -10,10 +10,27 @@ public class FlashlightVisuals : MonoBehaviour
 
     private bool isFlickering = false;
 
+    // MUDANÇA 1: Guardamos a referência da coroutine para podermos pará-la
+    private Coroutine activeFlickerCoroutine;
+
     public void SetLightState(bool state)
     {
-        if (flashlightLight != null && !isFlickering)
+        if (flashlightLight != null)
         {
+            // MUDANÇA 2: Se recebemos a ordem de desligar a luz e ela estiver piscando, matamos a coroutine.
+            if (!state && isFlickering)
+            {
+                if (activeFlickerCoroutine != null)
+                {
+                    StopCoroutine(activeFlickerCoroutine);
+                }
+                isFlickering = false; // Resetamos o estado
+            }
+
+            // MUDANÇA 3: Só bloqueamos a mudança de estado se tentarem LIGAR a luz durante um flicker.
+            // Para desligar, o comando agora passa direto.
+            if (state && isFlickering) return;
+
             flashlightLight.enabled = state;
         }
     }
@@ -23,7 +40,8 @@ public class FlashlightVisuals : MonoBehaviour
     {
         if (!isFlickering && flashlightLight.enabled)
         {
-            StartCoroutine(FlickerCoroutine());
+            // MUDANÇA 4: Salvamos a coroutine iniciada na variável
+            activeFlickerCoroutine = StartCoroutine(FlickerCoroutine());
         }
     }
 

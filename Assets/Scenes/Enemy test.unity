@@ -459,6 +459,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474896272}
   m_CullTransparentMesh: 1
+--- !u!1 &589089431 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5263975318584375968, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
+  m_PrefabInstance: {fileID: 2041788346}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &589089434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589089431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597c68054962fc44aab3122aa47d61b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnityCursorInput
 --- !u!1 &637531264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,7 +1093,7 @@ PrefabInstance:
       objectReference: {fileID: 1388232691}
     - target: {fileID: 6575283615679798932, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
       propertyPath: drainRate
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6575283615679798932, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
       propertyPath: flickerThreshold
@@ -1141,6 +1158,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 336263946788962782, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 339644800}
+    - targetCorrespondingSourceObject: {fileID: 5263975318584375968, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 589089434}
   m_SourcePrefab: {fileID: 100100000, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
 --- !u!1 &2097016555
 GameObject:

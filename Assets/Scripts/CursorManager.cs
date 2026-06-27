@@ -7,12 +7,12 @@ public class CursorManager : MonoBehaviour
 
     private void Awake()
     {
-        // Inversão de Dependência: Buscamos a abstração, não a classe concreta
+        // SOLID (Inversão de Dependência): Buscamos a abstração.
         _cursorInput = GetComponent<ICursorInput>();
 
         if (_cursorInput == null)
         {
-            Debug.LogError($"[CursorManager] Falta um componente que implemente ICursorInput no GameObject {gameObject.name}!");
+            Debug.LogError($"[CursorManager] Erro resolvido criando e anexando uma classe concreta (ex: UnityCursorInput) no GameObject '{gameObject.name}'!");
         }
     }
 
@@ -23,7 +23,6 @@ public class CursorManager : MonoBehaviour
 
     private void Update()
     {
-        // Se a interface disser que foi pressionado, destrancamos
         if (_cursorInput != null && _cursorInput.IsUnlockPressed())
         {
             UnlockCursor();
