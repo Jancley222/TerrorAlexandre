@@ -4,8 +4,36 @@ using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class WeepingAngel : MonoBehaviour
+public class WeepingAngel : MonoBehaviour, IFlashlightAffectable
 {
+
+    private Vector3 pontoSeguroNavMesh; // Ponto seguro para onde o anjo foge
+    private bool fugindoDaLanterna = false;
+
+    // Primeiro, o inimigo se afasta do player, depois segue para o ponto seguro do NavMesh.
+    public void onFlashlightHit(Vector3 flashlightPosition)
+    {
+
+        Vector3 direcaoOposta = (transform.position - flashlightPosition).normalized;
+        Vector3 destinoFuga = transform.position + direcaoOposta * 10f; // 10 unidades para trás
+
+        // Garante que o destino está no NavMesh
+        if (NavMesh.SamplePosition(destinoFuga, out NavMeshHit hit, 10f, NavMesh.AllAreas))
+        {
+            agent.SetDestination(hit.position);
+        }
+        else
+        {
+            agent.SetDestination(destinoFuga);
+        }
+
+        fugindoDaLanterna = true;
+        agent.isStopped = false;
+        agent.speed = velocidadeMovimento * 1.2f;
+        agent.SetDestination(pontoSeguroNavMesh);
+        _estadoAtual = EstadoAI.Patrulhando;
+    }
+
     private enum EstadoAI { Patrulhando, Perseguindo, Jumpscare }
 
     [Header("Componentes de Dependência")]
@@ -35,6 +63,22 @@ public class WeepingAngel : MonoBehaviour
 
     private void Update()
     {
+
+        // Se estiver fugindo da lanterna, verifica se chegou ao ponto seguro
+        if (fugindoDaLanterna)
+        {
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
+            {
+                fugindoDaLanterna = false;
+                // O erro está nesta linha:
+                patrolSystem.modoAtual = PatrolSystem.ModoPatrulha.AleatorioNoNavMesh;
+                Vector3 pontoAleatorio = patrolSystem.GetNextPatrolPoint(transform.position);
+                agent.SetDestination(pontoAleatorio);
+            }
+            return; // Não executa o resto do Update enquanto foge
+        }
+
+
         // PROTEÇÃO: Se o jumpscare já ativou, o anjo para de pensar. Fim de jogo.
         if (_estadoAtual == EstadoAI.Jumpscare) return;
 
@@ -139,4 +183,6 @@ public class WeepingAngel : MonoBehaviour
         yield return new WaitForSeconds(tempoJumpscare);
         SceneManager.LoadScene(cenaMorte);
     }
+
+   
 }

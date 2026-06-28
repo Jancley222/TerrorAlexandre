@@ -39,6 +39,12 @@ public class FlashlightController : MonoBehaviour
         {
             battery.Drain(Time.deltaTime);
         }
+
+        // No Update, logo após visuals.SetLightState(isOn);
+        if (isOn)
+        {
+            NotifyEnemiesHitByFlashlight();
+        }
     }
 
     private void ToggleFlashlight()
@@ -70,4 +76,23 @@ public class FlashlightController : MonoBehaviour
         battery.OnBatteryLow -= HandleBatteryLow;
         battery.OnBatteryEmpty -= HandleBatteryEmpty;
     }
+
+    private void NotifyEnemiesHitByFlashlight()
+    {
+        // Define o raio e direção do feixe da lanterna
+        float flashlightRange = 20f; // Ajuste conforme necessário
+        Vector3 origin = transform.position;
+        Vector3 direction = transform.forward;
+
+        RaycastHit[] hits = Physics.SphereCastAll(origin, 1.5f, direction, flashlightRange);
+        foreach (var hit in hits)
+        {
+            var affectable = hit.collider.GetComponent<IFlashlightAffectable>();
+            if (affectable != null)
+            {
+                affectable.onFlashlightHit(origin);
+            }
+        }
+    }
+
 }

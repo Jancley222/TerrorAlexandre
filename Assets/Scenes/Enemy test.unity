@@ -623,6 +623,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractableItem
   quantidadeCarga: 25
   nomeItem: Bateria de Lanterna
+--- !u!1 &873875650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 873875651}
+  m_Layer: 0
+  m_Name: PointsOfLions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &873875651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873875650}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 437.0683, y: 0.00001, z: 503.48538}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1735574040}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1144752141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1103,37 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!1 &1735574039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1735574040}
+  m_Layer: 0
+  m_Name: lionPoints
+  m_TagString: Untagged
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1735574040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735574039}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.95, y: 0, z: -41.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 873875651}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2041788346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1298,7 +1361,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 738765982953366491, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 445.40637
+      value: 426.8
       objectReference: {fileID: 0}
     - target: {fileID: 738765982953366491, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1306,7 +1369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 738765982953366491, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 516.84155
+      value: 495.27
       objectReference: {fileID: 0}
     - target: {fileID: 738765982953366491, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1340,6 +1403,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: LionStatue
       objectReference: {fileID: 0}
+    - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
+      propertyPath: modoAtual
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
+      propertyPath: pontosDePatrulha.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
+      propertyPath: 'pontosDePatrulha.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1735574040}
     - target: {fileID: 6629206537126531930, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: playerCam
       value: 
@@ -1362,3 +1437,4 @@ SceneRoots:
   - {fileID: 58272942}
   - {fileID: 1144752145}
   - {fileID: 2041788346}
+  - {fileID: 873875651}
