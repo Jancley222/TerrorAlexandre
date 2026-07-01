@@ -1,5 +1,4 @@
-﻿// PatrolSystem.cs
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class PatrolSystem : MonoBehaviour
