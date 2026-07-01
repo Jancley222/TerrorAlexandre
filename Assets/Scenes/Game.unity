@@ -19960,6 +19960,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2394d7d557201f048b00c84246231eb0, type: 3}
+--- !u!108 &1577672257 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 2895052026650601418, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
+  m_PrefabInstance: {fileID: 6539575488771114449}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1578616521
 GameObject:
   m_ObjectHideFlags: 0
@@ -27314,9 +27319,13 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2401436630072688405, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
+      propertyPath: flashlightLight
+      value: 
+      objectReference: {fileID: 1577672257}
     - target: {fileID: 2895052026650601418, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
       propertyPath: m_Intensity
-      value: 905
+      value: 879.02
       objectReference: {fileID: 0}
     - target: {fileID: 8630972450912992397, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
       propertyPath: m_LocalPosition.y
