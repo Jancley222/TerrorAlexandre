@@ -308,6 +308,37 @@ MonoBehaviour:
     m_Bits: 256
   cameraJogador: {fileID: 1471271013}
   botaoInteracao: Interact
+--- !u!1 &408499197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 408499198}
+  m_Layer: 0
+  m_Name: lionPoints (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &408499198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408499197}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 27.31, y: 0, z: -20.52}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 873875651}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &438978733
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +684,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1735574040}
+  - {fileID: 1542739697}
+  - {fileID: 1478681228}
+  - {fileID: 408499198}
   m_Father: {fileID: 2097016559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1144752141
@@ -973,6 +1007,37 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 3819325444662944453, guid: 0e30e728fe4fc2c41bfc61b47466ede7, type: 3}
   m_PrefabInstance: {fileID: 2041788346}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1478681227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478681228}
+  m_Layer: 0
+  m_Name: lionPoints (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1478681228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478681227}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -34.4, y: 0, z: -20.52}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 873875651}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1484871029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1168,37 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!1 &1542739696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1542739697}
+  m_Layer: 0
+  m_Name: lionPoints (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1542739697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542739696}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.87, y: 0, z: -45.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 873875651}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1735574039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,7 +1224,7 @@ Transform:
   m_GameObject: {fileID: 1735574039}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.95, y: 0, z: -41.48}
+  m_LocalPosition: {x: 2.87, y: 0, z: -20.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1410,12 +1506,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: pontosDePatrulha.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: 'pontosDePatrulha.Array.data[0]'
       value: 
       objectReference: {fileID: 1735574040}
+    - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
+      propertyPath: 'pontosDePatrulha.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1542739697}
+    - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
+      propertyPath: 'pontosDePatrulha.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1478681228}
+    - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
+      propertyPath: 'pontosDePatrulha.Array.data[3]'
+      value: 
+      objectReference: {fileID: 408499198}
+    - target: {fileID: 6211898818153304603, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
+      propertyPath: 'pontosDePatrulha.Array.data[4]'
+      value: 
+      objectReference: {fileID: 873875651}
     - target: {fileID: 6629206537126531930, guid: e6b512077f22747408edcbf7b920b2d9, type: 3}
       propertyPath: playerCam
       value: 

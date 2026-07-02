@@ -6,33 +6,13 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(NavMeshAgent))]
 public class WeepingAngel : MonoBehaviour, IFlashlightAffectable
 {
-
     private Vector3 pontoSeguroNavMesh; // Ponto seguro para onde o anjo foge
     private bool fugindoDaLanterna = false;
 
-    // Primeiro, o inimigo se afasta do player, depois segue para o ponto seguro do NavMesh.
-    public void onFlashlightHit(Vector3 flashlightPosition)
-    {
-
-        Vector3 direcaoOposta = (transform.position - flashlightPosition).normalized;
-        Vector3 destinoFuga = transform.position + direcaoOposta * 10f; // 10 unidades para trás
-
-        // Garante que o destino está no NavMesh
-        if (NavMesh.SamplePosition(destinoFuga, out NavMeshHit hit, 10f, NavMesh.AllAreas))
-        {
-            agent.SetDestination(hit.position);
-        }
-        else
-        {
-            agent.SetDestination(destinoFuga);
-        }
-
-        fugindoDaLanterna = true;
-        agent.isStopped = false;
-        agent.speed = velocidadeMovimento * 1.2f;
-        agent.SetDestination(pontoSeguroNavMesh);
-        _estadoAtual = EstadoAI.Patrulhando;
-    }
+    [Header("Fuga / Lanterna")]
+    [SerializeField] private float distanciaFuga = 10f;
+    [SerializeField] private float multiplicadorVelocidadeFuga = 1.2f;
+    [SerializeField] private float toleranciaChegada = 0.1f;
 
     private enum EstadoAI { Patrulhando, Perseguindo, Jumpscare }
 
@@ -57,40 +37,71 @@ public class WeepingAngel : MonoBehaviour, IFlashlightAffectable
     private void Start()
     {
         if (agent == null) agent = GetComponent<NavMeshAgent>();
-        agent.speed = velocidadeMovimento;
+        if (agent != null) agent.speed = velocidadeMovimento;
+        MudarEstado(EstadoAI.Patrulhando);
+    }
+
+    // Ao ser atingido pela lanterna: muda para patrulha por pontos específicos e vai até um ponto seguro.
+    public void onFlashlightHit(Vector3 flashlightPosition)
+    {
+        if (agent == null || patrolSystem == null) return;
+
+        // Define modo de patrulha para pontos específicos (encapsulado em PatrolSystem)
+        patrolSystem.SetModoPatrulha(PatrolSystem.ModoPatrulha.PontoMaisProximo);
+
+        // Escolhe um ponto "seguro" fornecido pelo PatrolSystem
+        pontoSeguroNavMesh = patrolSystem.GetSafePatrolPoint(transform.position);
+
+        // Marca fuga e aplica velocidade aumentada
+        fugindoDaLanterna = true;
+        _pontoDefinido = true;
+        agent.isStopped = false;
+        agent.speed = velocidadeMovimento * multiplicadorVelocidadeFuga;
+        agent.SetDestination(pontoSeguroNavMesh);
+
+        // Mantém estado de patrulha enquanto foge para o ponto seguro
         MudarEstado(EstadoAI.Patrulhando);
     }
 
     private void Update()
     {
+        if (agent == null) return;
 
         // Se estiver fugindo da lanterna, verifica se chegou ao ponto seguro
-        if (fugindoDaLanterna)
+        if (fugindoDaLanterna && _pontoDefinido)
         {
-            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + toleranciaChegada)
             {
+                // Ao chegar: volta para modo aleatório e retoma busca aleatória no NavMesh
                 fugindoDaLanterna = false;
-                // O erro está nesta linha:
-                patrolSystem.modoAtual = PatrolSystem.ModoPatrulha.AleatorioNoNavMesh;
-                Vector3 pontoAleatorio = patrolSystem.GetNextPatrolPoint(transform.position);
-                agent.SetDestination(pontoAleatorio);
+                _pontoDefinido = false;
+
+                agent.speed = velocidadeMovimento;
+                agent.isStopped = false;
+
+                if (patrolSystem != null)
+                {
+                    patrolSystem.SetModoPatrulha(PatrolSystem.ModoPatrulha.AleatorioNoNavMesh);
+                    Vector3 destinoAleatorio = patrolSystem.GetRandomPatrolPoint(transform.position);
+                    agent.SetDestination(destinoAleatorio);
+                }
             }
-            return; // Não executa o resto do Update enquanto foge
-        }
-
-
-        // PROTEÇÃO: Se o jumpscare já ativou, o anjo para de pensar. Fim de jogo.
-        if (_estadoAtual == EstadoAI.Jumpscare) return;
-
-        // REGRA DE OURO DO ANJO: Se o jogador estiver olhando, congela imediatamente!
-        if (visionFilter.IsBeingWatched())
-        {
-            agent.speed = 0;
-            agent.SetDestination(transform.root.position);
             return;
         }
 
-        // Se o jogador piscou ou desviou o olhar, o anjo retoma sua velocidade normal
+        if (_estadoAtual == EstadoAI.Jumpscare) return;
+
+        if (visionFilter != null && visionFilter.IsBeingWatched())
+        {
+            if (!agent.isStopped)
+            {
+                agent.isStopped = true;
+                agent.velocity = Vector3.zero;
+            }
+            return;
+        }
+
+        agent.isStopped = false;
         agent.speed = velocidadeMovimento;
 
         ProcessarEstados();
@@ -112,6 +123,8 @@ public class WeepingAngel : MonoBehaviour, IFlashlightAffectable
 
     private void ExecutarPatrulha()
     {
+        if (targetDetector == null || cabecaOlhos == null || agent == null) return;
+
         _alvoAtual = targetDetector.DetectTarget(cabecaOlhos);
         if (_alvoAtual != null)
         {
@@ -122,35 +135,48 @@ public class WeepingAngel : MonoBehaviour, IFlashlightAffectable
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
         {
-            Vector3 proximoPonto = patrolSystem.GetNextPatrolPoint(transform.position);
-            agent.SetDestination(proximoPonto);
+            if (patrolSystem != null)
+            {
+                Vector3 proximoPonto = patrolSystem.GetNextPatrolPoint(transform.position);
+                agent.SetDestination(proximoPonto);
+            }
         }
     }
 
     private void ExecutarPerseguicao()
     {
-        // 1. PRIMEIRO: Verifica a distância para atacar. 
-        // Usamos uma distância em "2D" (ignorando o Y) para que a altura do anjo não atrapalhe o cálculo.
+        if (_alvoAtual == null)
+        {
+            MudarEstado(EstadoAI.Patrulhando);
+            if (patrolSystem != null && agent != null)
+            {
+                Vector3 pontoPosPerseguicao = patrolSystem.GetNextPatrolPoint(transform.position);
+                agent.SetDestination(pontoPosPerseguicao);
+            }
+            return;
+        }
+
         float distanciaAteAlvo = Vector3.Distance(
             new Vector3(transform.position.x, 0, transform.position.z),
             new Vector3(_alvoAtual.position.x, 0, _alvoAtual.position.z)
         );
 
-        // Se estiver perto o suficiente, dá o bote imediatamente!
         if (distanciaAteAlvo <= distanciaAtaque)
         {
             MudarEstado(EstadoAI.Jumpscare);
-            return; // Importante: Dá o return para não continuar executando o código abaixo
+            return;
         }
 
-        // 2. SÓ DEPOIS: Checa se o jogador fugiu da visão
-        Transform alvoVisto = targetDetector.DetectTarget(cabecaOlhos);
+        Transform alvoVisto = targetDetector != null ? targetDetector.DetectTarget(cabecaOlhos) : null;
 
         if (alvoVisto == null)
         {
             MudarEstado(EstadoAI.Patrulhando);
-            Vector3 pontoPosPerseguicao = patrolSystem.GetNextPatrolPoint(transform.position);
-            agent.SetDestination(pontoPosPerseguicao);
+            if (patrolSystem != null && agent != null)
+            {
+                Vector3 pontoPosPerseguicao = patrolSystem.GetNextPatrolPoint(transform.position);
+                agent.SetDestination(pontoPosPerseguicao);
+            }
             return;
         }
 
@@ -159,7 +185,6 @@ public class WeepingAngel : MonoBehaviour, IFlashlightAffectable
 
     private void MudarEstado(EstadoAI novoEstado)
     {
-        // Evita que o mesmo estado seja chamado duas vezes seguidas
         if (_estadoAtual == novoEstado) return;
 
         _estadoAtual = novoEstado;
@@ -172,17 +197,16 @@ public class WeepingAngel : MonoBehaviour, IFlashlightAffectable
 
     private IEnumerator RotinaMorte()
     {
-        // Trava o NavMesh para ele não deslizar durante o susto
-        agent.isStopped = true;
-        agent.velocity = Vector3.zero;
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+        }
 
-        // Troca as câmeras
         if (_alvoAtual != null) _alvoAtual.gameObject.SetActive(false);
         if (jumpscareCam != null) jumpscareCam.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(tempoJumpscare);
         SceneManager.LoadScene(cenaMorte);
     }
-
-   
 }
