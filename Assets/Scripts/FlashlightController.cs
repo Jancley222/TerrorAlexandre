@@ -45,6 +45,11 @@ public class FlashlightController : MonoBehaviour
         {
             NotifyEnemiesHitByFlashlight();
         }
+
+        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            TryReloadFlashlight();
+        }
     }
 
     private void ToggleFlashlight()
@@ -91,6 +96,24 @@ public class FlashlightController : MonoBehaviour
             if (affectable != null)
             {
                 affectable.onFlashlightHit(origin);
+            }
+        }
+    }
+
+    private void TryReloadFlashlight()
+    {
+        BatteryInventory inventory = GetComponent<BatteryInventory>();
+
+        if (inventory != null && inventory.BatteryCount > 0)
+        {
+            // Verifica se a lanterna já não está cheia (opcional)
+            if (battery.CurrentBattery < 100f)
+            {
+                if (inventory.ConsumeBattery())
+                {
+                    battery.Recharge(25f); // Valor da recarga
+                    Debug.Log("Lanterna recarregada usando uma bateria do inventário!");
+                }
             }
         }
     }

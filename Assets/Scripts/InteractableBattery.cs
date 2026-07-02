@@ -4,7 +4,6 @@ using UnityEngine;
 public class InteractableBattery : MonoBehaviour, IInteractable
 {
     [Header("Configurações da Bateria")]
-    [SerializeField] private float quantidadeCarga = 25f;
     [SerializeField] private string nomeItem = "Bateria de Lanterna";
 
     public void Interact()
@@ -14,22 +13,21 @@ public class InteractableBattery : MonoBehaviour, IInteractable
 
     private void ColetarBateria()
     {
-        // Procura pelo componente de bateria no Player do mapa
         GameObject player = GameObject.FindGameObjectWithTag("Jogador");
 
         if (player != null)
         {
-            FlashlightBattery playerBattery = player.GetComponentInChildren<FlashlightBattery>();
+            BatteryInventory inventory = player.GetComponent<BatteryInventory>();
 
-            if (playerBattery != null)
+            if (inventory != null)
             {
-                playerBattery.Recharge(quantidadeCarga);
-                Debug.Log($"[Lanterna/Inventário] {nomeItem} coletada! Adicionado +{quantidadeCarga}% de carga.");
+                inventory.AddBattery(1);
+                Debug.Log($"[Inventário] {nomeItem} guardada no inventário.");
                 Destroy(gameObject);
                 return;
             }
         }
 
-        Debug.LogWarning("Player ou componente FlashlightBattery não encontrado para aplicar a carga.");
+        Debug.Warning("Player ou componente BatteryInventory não encontrado para guardar a bateria.");
     }
 }
