@@ -549,7 +549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7d89fa561c40b54d938cd167c6daa43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableItem
-  quantidadeCarga: 25
   nomeItem: Bateria de Lanterna
 --- !u!1 &695452634
 GameObject:
@@ -560,6 +559,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 695452635}
+  - component: {fileID: 695452636}
   m_Layer: 0
   m_Name: BatteryUIManager
   m_TagString: Untagged
@@ -582,6 +582,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1144752145}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &695452636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695452634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc9a133e7f49d94cbfb48c9c00e5237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BatteryInventoryUI
+  batteryText: {fileID: 1180111295}
+  playerInventory: {fileID: 339644803}
 --- !u!1 &873875650
 GameObject:
   m_ObjectHideFlags: 0

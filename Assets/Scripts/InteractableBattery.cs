@@ -28,6 +28,5 @@ public class InteractableBattery : MonoBehaviour, IInteractable
             }
         }
 
-        Debug.Warning("Player ou componente BatteryInventory não encontrado para guardar a bateria.");
     }
 }
