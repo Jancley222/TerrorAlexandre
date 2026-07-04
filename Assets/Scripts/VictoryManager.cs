@@ -8,6 +8,8 @@ public class VictoryManager : MonoBehaviour
 
     // Evento que avisa que o jogador coletou tudo e ganhou o jogo
     public static event Action OnVictoryAchieved;
+    // Evento para atualizar HUD
+    public static event Action<int, int> OnProgressChanged;
 
     private void Awake()
     {
@@ -17,6 +19,7 @@ public class VictoryManager : MonoBehaviour
         itemsColetados = 0;
 
         Debug.Log($"[Vitória] Sistema iniciado. Itens necessários para vencer: {totalItemsNaCena}");
+        OnProgressChanged?.Invoke(itemsColetados, totalItemsNaCena);
     }
 
     private void OnEnable()
@@ -35,6 +38,8 @@ public class VictoryManager : MonoBehaviour
     {
         itemsColetados++;
         Debug.Log($"[Vitória] Progresso: {itemsColetados}/{totalItemsNaCena}");
+
+        OnProgressChanged?.Invoke(itemsColetados, totalItemsNaCena);
 
         if (itemsColetados >= totalItemsNaCena && totalItemsNaCena > 0)
         {
