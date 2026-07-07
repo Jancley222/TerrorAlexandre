@@ -804,6 +804,8 @@ MonoBehaviour:
   scrollSpeed: 150
   startPositionY: -800
   endPositionY: 1500
+  maxDisplayTime: 15
+  menuSceneName: telaInicial
 --- !u!4 &1666226657
 Transform:
   m_ObjectHideFlags: 0

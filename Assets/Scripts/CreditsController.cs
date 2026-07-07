@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement; // IMPORTANTE: Necessário para usar o SceneManager
 
 public class CreditsController : MonoBehaviour
 {
@@ -12,8 +13,15 @@ public class CreditsController : MonoBehaviour
     [SerializeField] private float startPositionY = -600f; // Geralmente abaixo da tela
     [SerializeField] private float endPositionY = 1200f;   // Geralmente acima da tela
 
+    [Header("Configurações de Tempo e Cena")]
+    [Tooltip("Tempo máximo em segundos que os créditos ficarão ativos na tela antes de mudar de cena.")]
+    [SerializeField] private float maxDisplayTime = 15f;
+    [Tooltip("Nome exato da cena inicial para onde o jogo deve ir.")]
+    [SerializeField] private string menuSceneName = "MenuPrincipal";
+
     private ICreditMover _creditMover;
     private bool _isScrolling = false;
+    private float _timeCounter = 0f; // Rastreador do tempo decorrido
 
     private void Awake()
     {
@@ -31,11 +39,14 @@ public class CreditsController : MonoBehaviour
     {
         if (!_isScrolling) return;
 
-        // Executa o movimento delegando a responsabilidade para o mover correspondente
+        // 1. Gerencia e incrementa o tempo de exibição
+        _timeCounter += Time.deltaTime;
+
+        // 2. Executa o movimento delegando a responsabilidade para o mover correspondente
         _creditMover.Move(creditsTextRect, scrollSpeed, Time.deltaTime);
 
-        // Verifica se os créditos passaram do limite final
-        if (creditsTextRect.anchoredPosition.y >= endPositionY)
+        // 3. Verifica se o tempo acabou OU se os créditos passaram do limite físico na tela
+        if (_timeCounter >= maxDisplayTime || creditsTextRect.anchoredPosition.y >= endPositionY)
         {
             EndCredits();
         }
@@ -52,13 +63,16 @@ public class CreditsController : MonoBehaviour
     public void StartCredits()
     {
         _isScrolling = true;
+        _timeCounter = 0f; // Reinicia o contador ao começar
     }
 
     private void EndCredits()
     {
         _isScrolling = false;
-        Debug.Log("Créditos finalizados!");
-        // Aqui você pode carregar a cena do menu, dar fade out, etc.
+        Debug.Log("Créditos finalizados! Carregando a cena inicial...");
+
+        // Troca a cena para o início usando o nome definido no Inspector
+        SceneManager.LoadScene(menuSceneName);
     }
 
     // Exemplo de como mudar o texto dinamicamente se necessário (Mantendo responsabilidade isolada)
