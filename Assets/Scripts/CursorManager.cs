@@ -21,13 +21,6 @@ public class CursorManager : MonoBehaviour
         LockCursor();
     }
 
-    private void Update()
-    {
-        if (_cursorInput != null && _cursorInput.IsUnlockPressed())
-        {
-            UnlockCursor();
-        }
-    }
 
     public void LockCursor()
     {
@@ -35,9 +28,4 @@ public class CursorManager : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public void UnlockCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
 }

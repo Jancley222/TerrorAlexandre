@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 [RequireComponent(typeof(FlashlightBattery))]
 [RequireComponent(typeof(FlashlightVisuals))]
@@ -8,6 +9,9 @@ public class FlashlightController : MonoBehaviour
     private FlashlightBattery battery;
     private FlashlightVisuals visuals;
     private bool isOn = false;
+
+    // SOLID: Evento para notificar sistemas externos (como a UI) sobre a mudança no estado crítico da bateria
+    public event Action<bool> OnFlashlightEmptyStateChanged;
 
     private void Awake()
     {
@@ -28,7 +32,7 @@ public class FlashlightController : MonoBehaviour
     {
         if (PauseMenu.isGamePaused) return;
 
-        // Input usando o novo Input System (Mantido conforme seu script original)
+        // Input usando o novo Input System
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             ToggleFlashlight();
@@ -45,7 +49,7 @@ public class FlashlightController : MonoBehaviour
             NotifyEnemiesHitByFlashlight();
         }
 
-        // MUDANÇA AQUI: Usando o GetButtonDown clássico da Unity
+        // Usando o GetButtonDown clássico da Unity
         if (Input.GetButtonDown("Reload"))
         {
             TryReloadFlashlight();
@@ -62,8 +66,8 @@ public class FlashlightController : MonoBehaviour
 
     private void HandleBatteryLow()
     {
-        // Chance aleatória por frame para o efeito de game juice não ser repetitivo ou travado
-        if (Random.value < 0.02f)
+        // Correção: Especificando explicitamente o uso do UnityEngine.Random
+        if (UnityEngine.Random.value < 0.02f)
         {
             visuals.TriggerFlicker();
         }
@@ -73,19 +77,20 @@ public class FlashlightController : MonoBehaviour
     {
         isOn = false;
         visuals.SetLightState(false);
+
+        // Notifica que a lanterna ficou sem bateria
+        OnFlashlightEmptyStateChanged?.Invoke(true);
     }
 
     private void OnDestroy()
     {
-        // Boa prática: desinscrever dos eventos para evitar Memory Leaks
         battery.OnBatteryLow -= HandleBatteryLow;
         battery.OnBatteryEmpty -= HandleBatteryEmpty;
     }
 
     private void NotifyEnemiesHitByFlashlight()
     {
-        // Define o raio e direção do feixe da lanterna
-        float flashlightRange = 20f; // Ajuste conforme necessário
+        float flashlightRange = 20f;
         Vector3 origin = transform.position;
         Vector3 direction = transform.forward;
 
@@ -102,7 +107,6 @@ public class FlashlightController : MonoBehaviour
 
     private void TryReloadFlashlight()
     {
-        // BUSCA MELHORADA: Procura o inventário no objeto atual ou nos objetos pais (como o Player)
         BatteryInventory inventory = GetComponentInParent<BatteryInventory>();
 
         if (inventory == null)
@@ -111,26 +115,26 @@ public class FlashlightController : MonoBehaviour
             return;
         }
 
-        // Se encontrou o inventário, verifica a quantidade de baterias
         if (inventory.BatteryCount <= 0)
         {
             Debug.Log("[Lanterna] Você apertou R, mas não tem nenhuma bateria no inventário!");
             return;
         }
 
-        // Verifica se a lanterna já está cheia
         if (battery.CurrentBattery >= 100f)
         {
             Debug.Log("[Lanterna] Bateria já está cheia (100%). Não precisa recarregar.");
             return;
         }
 
-        // Se passou em todos os testes, consome e recarrega
         if (inventory.ConsumeBattery())
         {
-            battery.Recharge(25f); // Valor da recarga
+            battery.Recharge(100f); // Valor da recarga
+
+            // Notifica que a lanterna saiu do estado de "bateria vazia"
+            OnFlashlightEmptyStateChanged?.Invoke(false);
+
             Debug.Log("[Lanterna] Lanterna recarregada com sucesso usando 1 bateria!");
         }
     }
-
 }

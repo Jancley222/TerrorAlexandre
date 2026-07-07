@@ -5,7 +5,6 @@ public class BatteryInventory : MonoBehaviour
 {
     private int batteryCount = 0;
 
-    // Evento que avisa a UI (ou outros sistemas) quando a quantidade muda
     public event Action<int> OnBatteryCountChanged;
 
     public int BatteryCount => batteryCount;
