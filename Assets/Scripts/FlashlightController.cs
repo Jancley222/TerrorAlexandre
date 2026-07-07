@@ -28,7 +28,7 @@ public class FlashlightController : MonoBehaviour
     {
         if (PauseMenu.isGamePaused) return;
 
-        // Input usando o novo Input System
+        // Input usando o novo Input System (Mantido conforme seu script original)
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             ToggleFlashlight();
@@ -40,13 +40,13 @@ public class FlashlightController : MonoBehaviour
             battery.Drain(Time.deltaTime);
         }
 
-        // No Update, logo após visuals.SetLightState(isOn);
         if (isOn)
         {
             NotifyEnemiesHitByFlashlight();
         }
 
-        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
+        // MUDANÇA AQUI: Usando o GetButtonDown clássico da Unity
+        if (Input.GetButtonDown("Reload"))
         {
             TryReloadFlashlight();
         }
@@ -102,19 +102,34 @@ public class FlashlightController : MonoBehaviour
 
     private void TryReloadFlashlight()
     {
-        BatteryInventory inventory = GetComponent<BatteryInventory>();
+        // BUSCA MELHORADA: Procura o inventário no objeto atual ou nos objetos pais (como o Player)
+        BatteryInventory inventory = GetComponentInParent<BatteryInventory>();
 
-        if (inventory != null && inventory.BatteryCount > 0)
+        if (inventory == null)
         {
-            // Verifica se a lanterna já não está cheia (opcional)
-            if (battery.CurrentBattery < 100f)
-            {
-                if (inventory.ConsumeBattery())
-                {
-                    battery.Recharge(25f); // Valor da recarga
-                    Debug.Log("Lanterna recarregada usando uma bateria do inventário!");
-                }
-            }
+            Debug.LogWarning("[Lanterna] Erro: Não foi possível encontrar o 'BatteryInventory' no Player ou na Lanterna!");
+            return;
+        }
+
+        // Se encontrou o inventário, verifica a quantidade de baterias
+        if (inventory.BatteryCount <= 0)
+        {
+            Debug.Log("[Lanterna] Você apertou R, mas não tem nenhuma bateria no inventário!");
+            return;
+        }
+
+        // Verifica se a lanterna já está cheia
+        if (battery.CurrentBattery >= 100f)
+        {
+            Debug.Log("[Lanterna] Bateria já está cheia (100%). Não precisa recarregar.");
+            return;
+        }
+
+        // Se passou em todos os testes, consome e recarrega
+        if (inventory.ConsumeBattery())
+        {
+            battery.Recharge(25f); // Valor da recarga
+            Debug.Log("[Lanterna] Lanterna recarregada com sucesso usando 1 bateria!");
         }
     }
 
