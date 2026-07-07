@@ -10,8 +10,8 @@ public class CreditsController : MonoBehaviour
 
     [Header("Configura��es de Movimento")]
     [SerializeField] private float scrollSpeed = 50f;
-    [SerializeField] private float startPositionY = -600f; // Geralmente abaixo da tela
-    [SerializeField] private float endPositionY = 1200f;   // Geralmente acima da tela
+    [SerializeField] private float startPositionY = -600f;
+    [SerializeField] private float endPositionY = 1200f;
 
     [Header("Configura��es de Tempo e Cena")]
     [Tooltip("Tempo m�ximo em segundos que os cr�ditos ficar�o ativos na tela antes de mudar de cena.")]
@@ -21,7 +21,7 @@ public class CreditsController : MonoBehaviour
 
     private ICreditMover _creditMover;
     private bool _isScrolling = false;
-    private float _timeCounter = 0f; // Rastreador do tempo decorrido
+    private float _timeCounter = 0f;
 
     private void Awake()
     {
@@ -41,8 +41,6 @@ public class CreditsController : MonoBehaviour
 
         // 1. Gerencia e incrementa o tempo de exibi��o
         _timeCounter += Time.deltaTime;
-
-        // 2. Executa o movimento delegando a responsabilidade para o mover correspondente
         _creditMover.Move(creditsTextRect, scrollSpeed, Time.deltaTime);
 
         // 3. Verifica se o tempo acabou OU se os cr�ditos passaram do limite f�sico na tela

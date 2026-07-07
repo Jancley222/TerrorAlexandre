@@ -1,26 +1,59 @@
-// CursorManager.cs
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CursorManager : MonoBehaviour
 {
-    private ICursorInput _cursorInput;
+    [Header("Configurações de Fluxo")]
+    [Tooltip("O índice da cena do menu principal no Build Settings (geralmente é 0).")]
+    [SerializeField] private int _menuSceneIndex = 0;
+
+    private static CursorManager _instance;
 
     private void Awake()
     {
-        // SOLID (Inversão de Dependência): Buscamos a abstração.
-        _cursorInput = GetComponent<ICursorInput>();
-
-        if (_cursorInput == null)
+        // Padrão Singleton simples para evitar duplicatas do gerenciador ao voltar para o menu
+        if (_instance != null && _instance != this)
         {
-            Debug.LogError($"[CursorManager] Erro resolvido criando e anexando uma classe concreta (ex: UnityCursorInput) no GameObject '{gameObject.name}'!");
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        // Força a checagem assim que o jogo inicia ou o objeto acorda
+        EvaluateCursorState(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        EvaluateCursorState(scene.buildIndex);
+    }
+
+    // SOLID (SRP): Responsabilidade única de ditar o estado do cursor pelo índice da cena
+    private void EvaluateCursorState(int sceneIndex)
+    {
+        if (sceneIndex == _menuSceneIndex)
+        {
+            UnlockCursor();
+            Debug.Log("[CursorManager] Mouse LIBERADO na cena de índice: " + sceneIndex);
+        }
+        else
+        {
+            LockCursor();
+            Debug.Log("[CursorManager] Mouse BLOQUEADO na cena de índice: " + sceneIndex);
         }
     }
-
-    private void Start()
-    {
-        LockCursor();
-    }
-
 
     public void LockCursor()
     {
@@ -28,4 +61,9 @@ public class CursorManager : MonoBehaviour
         Cursor.visible = false;
     }
 
+    public void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }
