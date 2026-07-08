@@ -18017,7 +18017,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Pega as ferramentas parta amanha, elas est\xE3o espalhadas pela fazenda,
+  m_text: "Pega as ferramentas para amanha, elas est\xE3o espalhadas pela fazenda,
     mas cuiado com o "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05899d5d731cd4c49964a41f01b1f21a, type: 2}
