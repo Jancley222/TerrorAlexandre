@@ -69,7 +69,7 @@ public class CreditsController : MonoBehaviour
         Debug.Log("Cr�ditos finalizados! Carregando a cena inicial...");
 
         // O CursorManager (que � DontDestroyOnLoad) vai interceptar esse carregamento automaticamente!
-        SceneManager.LoadScene(menuSceneName);
+        SceneManager.LoadScene("telaInicial");
     }
 
     public void UpdateText(string textContent)

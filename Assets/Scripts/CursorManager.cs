@@ -5,11 +5,10 @@ public class CursorManager : MonoBehaviour
 {
     [Header("Configurações de Fluxo (Telas com Mouse Liberado)")]
     [Tooltip("Nome exato da cena do Menu Principal.")]
-    [SerializeField] private string _menuSceneName = "MenuPrincipal";
+    [SerializeField] private string _menuSceneName = "telaInicial"; // Alterado para bater com seu projeto
 
     [Tooltip("Nome exato da cena de Vitória.")]
     [SerializeField] private string _victorySceneName = "VictoryScene";
-
     private static CursorManager _instance;
 
     private void Awake()

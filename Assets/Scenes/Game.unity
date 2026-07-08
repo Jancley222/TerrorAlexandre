@@ -43779,6 +43779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2102634871}
   - component: {fileID: 2102634870}
+  - component: {fileID: 2102634872}
   m_Layer: 0
   m_Name: VictorySceneLoader
   m_TagString: Untagged
@@ -43799,6 +43800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VictorySceneLoader
   nomeCenaVitoria: VictoryScene
+  sceneLoader: {fileID: 2102634872}
 --- !u!4 &2102634871
 Transform:
   m_ObjectHideFlags: 0
@@ -43814,6 +43816,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2102634872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102634869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cc4e79ac7ecc94595da2a41f7217d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitySceneLoader
+  cenaAlvoPadrao: VictoryScene
 --- !u!1001 &2106354575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45650,7 +45665,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67802f69134cce6419df99f56f077164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CursorController
-  _menuSceneIndex: 0
+  _menuSceneName: MenuPrincipal
+  _victorySceneName: VictoryScene
 --- !u!114 &4398887143414493778
 MonoBehaviour:
   m_ObjectHideFlags: 0
