@@ -9,7 +9,7 @@ public class ManagerScene : MonoBehaviour
 
     public void MenuSpace()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("telaInicial");
     }
 
     public void QuitGame()

@@ -1,20 +1,20 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement; // IMPORTANTE: Necessário para usar o SceneManager
+using UnityEngine.SceneManagement; // IMPORTANTE: Necessï¿½rio para usar o SceneManager
 
 public class CreditsController : MonoBehaviour
 {
-    [Header("Configurações de UI")]
+    [Header("Configuraï¿½ï¿½es de UI")]
     [SerializeField] private RectTransform creditsTextRect;
     [SerializeField] private TextMeshProUGUI creditsTextMesh;
 
-    [Header("Configurações de Movimento")]
+    [Header("Configuraï¿½ï¿½es de Movimento")]
     [SerializeField] private float scrollSpeed = 50f;
     [SerializeField] private float startPositionY = -600f; // Geralmente abaixo da tela
     [SerializeField] private float endPositionY = 1200f;   // Geralmente acima da tela
 
-    [Header("Configurações de Tempo e Cena")]
-    [Tooltip("Tempo máximo em segundos que os créditos ficarão ativos na tela antes de mudar de cena.")]
+    [Header("Configuraï¿½ï¿½es de Tempo e Cena")]
+    [Tooltip("Tempo mï¿½ximo em segundos que os crï¿½ditos ficarï¿½o ativos na tela antes de mudar de cena.")]
     [SerializeField] private float maxDisplayTime = 15f;
     [Tooltip("Nome exato da cena inicial para onde o jogo deve ir.")]
     [SerializeField] private string menuSceneName = "MenuPrincipal";
@@ -25,7 +25,7 @@ public class CreditsController : MonoBehaviour
 
     private void Awake()
     {
-        // D do SOLID: Dependemos de uma abstração (interface) e não da implementação rígida.
+        // D do SOLID: Dependemos de uma abstraï¿½ï¿½o (interface) e nï¿½o da implementaï¿½ï¿½o rï¿½gida.
         _creditMover = new LinearMover();
     }
 
@@ -39,13 +39,13 @@ public class CreditsController : MonoBehaviour
     {
         if (!_isScrolling) return;
 
-        // 1. Gerencia e incrementa o tempo de exibição
+        // 1. Gerencia e incrementa o tempo de exibiï¿½ï¿½o
         _timeCounter += Time.deltaTime;
 
         // 2. Executa o movimento delegando a responsabilidade para o mover correspondente
         _creditMover.Move(creditsTextRect, scrollSpeed, Time.deltaTime);
 
-        // 3. Verifica se o tempo acabou OU se os créditos passaram do limite físico na tela
+        // 3. Verifica se o tempo acabou OU se os crï¿½ditos passaram do limite fï¿½sico na tela
         if (_timeCounter >= maxDisplayTime || creditsTextRect.anchoredPosition.y >= endPositionY)
         {
             EndCredits();
@@ -63,19 +63,19 @@ public class CreditsController : MonoBehaviour
     public void StartCredits()
     {
         _isScrolling = true;
-        _timeCounter = 0f; // Reinicia o contador ao começar
+        _timeCounter = 0f; // Reinicia o contador ao comeï¿½ar
     }
 
     private void EndCredits()
     {
         _isScrolling = false;
-        Debug.Log("Créditos finalizados! Carregando a cena inicial...");
+        Debug.Log("Crï¿½ditos finalizados! Carregando a cena inicial...");
 
-        // Troca a cena para o início usando o nome definido no Inspector
+        // Troca a cena para o inï¿½cio usando o nome definido no Inspector
         SceneManager.LoadScene(menuSceneName);
     }
 
-    // Exemplo de como mudar o texto dinamicamente se necessário (Mantendo responsabilidade isolada)
+    // Exemplo de como mudar o texto dinamicamente se necessï¿½rio (Mantendo responsabilidade isolada)
     public void UpdateText(string textContent)
     {
         if (creditsTextMesh != null)
