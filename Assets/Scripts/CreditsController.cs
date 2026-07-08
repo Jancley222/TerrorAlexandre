@@ -4,17 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class CreditsController : MonoBehaviour
 {
-    [Header("Configurações de UI")]
+    [Header("Configuraï¿½ï¿½es de UI")]
     [SerializeField] private RectTransform creditsTextRect;
     [SerializeField] private TextMeshProUGUI creditsTextMesh;
 
-    [Header("Configurações de Movimento")]
+    [Header("Configuraï¿½ï¿½es de Movimento")]
     [SerializeField] private float scrollSpeed = 50f;
     [SerializeField] private float startPositionY = -600f;
     [SerializeField] private float endPositionY = 1200f;
 
-    [Header("Configurações de Tempo e Cena")]
-    [Tooltip("Tempo máximo em segundos que os créditos ficarão ativos na tela antes de mudar de cena.")]
+    [Header("Configuraï¿½ï¿½es de Tempo e Cena")]
+    [Tooltip("Tempo mï¿½ximo em segundos que os crï¿½ditos ficarï¿½o ativos na tela antes de mudar de cena.")]
     [SerializeField] private float maxDisplayTime = 15f;
     [Tooltip("Nome exato da cena inicial para onde o jogo deve ir.")]
     [SerializeField] private string menuSceneName = "MenuPrincipal";
@@ -66,9 +66,9 @@ public class CreditsController : MonoBehaviour
     private void EndCredits()
     {
         _isScrolling = false;
-        Debug.Log("Créditos finalizados! Carregando a cena inicial...");
+        Debug.Log("Crï¿½ditos finalizados! Carregando a cena inicial...");
 
-        // O CursorManager (que é DontDestroyOnLoad) vai interceptar esse carregamento automaticamente!
+        // O CursorManager (que ï¿½ DontDestroyOnLoad) vai interceptar esse carregamento automaticamente!
         SceneManager.LoadScene(menuSceneName);
     }
 
