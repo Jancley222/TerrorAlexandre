@@ -1,128 +1,40 @@
 using UnityEngine;
-
-using UnityEngine.InputSystem;
-
-
-
 public class PauseMenu : MonoBehaviour
-
 {
-
+    public GameObject pausePanel;
+    // Outros scripts podem verificar se o jogo está pausado
     public static bool isGamePaused = false;
-
-    [SerializeField] private PlayerInput playerInput;
-
-
-
-    void Update()
-
+    void Start()
     {
-
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-
-        {
-
-            if (isGamePaused)
-
-            {
-
-                Resume();
-
-            }
-
-            else
-
-            {
-
-                Pause();
-
-            }
-
-        }
-
-    }
-
-
-
-    public void Resume()
-
-    {
-
-        isGamePaused = false;
-
+        pausePanel.SetActive(false);
         Time.timeScale = 1f;
-
-
-
-        Cursor.lockState = CursorLockMode.Locked;
-
-        Cursor.visible = false;
-
-
-
-        if (playerInput != null)
-
-        {
-
-            playerInput.enabled = true;
-
-        }
-
-
-
-        Debug.Log("Resumed");
-
+        isGamePaused = false;
     }
-
-
-
-    public void Pause()
-
+    void Update()
     {
-
-        isGamePaused = true;
-
-        Time.timeScale = 0f;
-
-
-
-        Cursor.lockState = CursorLockMode.None;
-
-        Cursor.visible = true;
-
-
-
-        if (playerInput != null)
-
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-
-            playerInput.enabled = false;
-
+            if (isGamePaused)
+                Continuar();
+            else
+                Pausar();
         }
-
-
-
-        InputSystem.ResetHaptics();
-
-        foreach (var device in InputSystem.devices)
-
-        {
-
-            if (device is Keyboard || device is Mouse)
-
-            {
-
-                InputSystem.ResetDevice(device);
-
-            }
-
-        }
-
-
-
-        Debug.Log("Paused");
-
     }
-
+    public void Pausar()
+    {
+        pausePanel.SetActive(true);
+        Time.timeScale = 0f;
+        isGamePaused = true;
+    }
+    public void Continuar()
+    {
+        pausePanel.SetActive(false);
+        Time.timeScale = 1f;
+        isGamePaused = false;
+    }
+    public void SairJogo()
+    {
+        Debug.Log("Saindo do jogo...");
+        Application.Quit();
+    }
 }
-
