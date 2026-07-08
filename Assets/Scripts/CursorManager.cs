@@ -3,15 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class CursorManager : MonoBehaviour
 {
-    [Header("Configurações de Fluxo")]
-    [Tooltip("O índice da cena do menu principal no Build Settings (geralmente é 0).")]
-    [SerializeField] private int _menuSceneIndex = 0;
+    [Header("Configurações de Fluxo (Telas com Mouse Liberado)")]
+    [Tooltip("Nome exato da cena do Menu Principal.")]
+    [SerializeField] private string _menuSceneName = "MenuPrincipal";
+
+    [Tooltip("Nome exato da cena de Vitória.")]
+    [SerializeField] private string _victorySceneName = "VictoryScene";
 
     private static CursorManager _instance;
 
     private void Awake()
     {
-        // Padrão Singleton simples para evitar duplicatas do gerenciador ao voltar para o menu
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
@@ -21,8 +23,8 @@ public class CursorManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Força a checagem assim que o jogo inicia ou o objeto acorda
-        EvaluateCursorState(SceneManager.GetActiveScene().buildIndex);
+        // Avalia o estado atual usando o nome da cena ativa
+        EvaluateCursorState(SceneManager.GetActiveScene().name);
     }
 
     private void OnEnable()
@@ -37,21 +39,22 @@ public class CursorManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        EvaluateCursorState(scene.buildIndex);
+        EvaluateCursorState(scene.name);
     }
 
-    // SOLID (SRP): Responsabilidade única de ditar o estado do cursor pelo índice da cena
-    private void EvaluateCursorState(int sceneIndex)
+    // SOLID (SRP): Responsabilidade única de ditar o estado do cursor comparando os nomes das cenas
+    private void EvaluateCursorState(string sceneName)
     {
-        if (sceneIndex == _menuSceneIndex)
+        // Se a cena atual for o Menu Principal OU for a Cena de Vitória, o mouse é LIBERADO
+        if (sceneName == _menuSceneName || sceneName == _victorySceneName)
         {
             UnlockCursor();
-            Debug.Log("[CursorManager] Mouse LIBERADO na cena de índice: " + sceneIndex);
+            Debug.Log("[CursorManager] Mouse LIBERADO na cena: " + sceneName);
         }
         else
         {
             LockCursor();
-            Debug.Log("[CursorManager] Mouse BLOQUEADO na cena de índice: " + sceneIndex);
+            Debug.Log("[CursorManager] Mouse BLOQUEADO na cena: " + sceneName);
         }
     }
 
