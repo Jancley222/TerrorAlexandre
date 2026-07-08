@@ -17,6 +17,6 @@ public class VictorySceneLoader : MonoBehaviour
 
     private void CarregarCenaVitoria()
     {
-        SceneManager.LoadScene(nomeCenaVitoria);
+        SceneControler.LoadScene(nomeCenaVitoria);
     }
 }
